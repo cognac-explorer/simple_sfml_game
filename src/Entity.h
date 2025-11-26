@@ -27,12 +27,12 @@ class Entity
     std::string    m_tag    = "default";
     ComponentTuple m_components;
 
-    Entity(const size_t & id, const std::string & tag);
+    Entity(const size_t& id, const std::string& tag);
 
 public:
 
     bool                isActive() const;
-    const std::string & tag()      const;
+    const std::string& tag()      const;
     size_t              id()       const;
     void destroy();
 
@@ -43,22 +43,22 @@ public:
     }
 
     template <typename T, typename... TArgs>
-    T & addComponent(TArgs&&... mArgs)
+    T& addComponent(TArgs&&... mArgs)
     {
-        auto & component = getComponent<T>();
+        auto& component = getComponent<T>();
         component = T(std::forward<TArgs>(mArgs)...);
         component.has = true;
         return component;
     }
 
     template <typename T>
-    T & getComponent()
+    T& getComponent()
     {
         return std::get<T>(m_components);
     }
 
     template <typename T>
-    const T & getComponent() const
+    const T& getComponent() const
     {
         return std::get<T>(m_components);
     }

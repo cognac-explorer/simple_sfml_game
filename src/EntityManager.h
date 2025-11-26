@@ -16,14 +16,14 @@ class EntityManager
     EntityMap m_entitiesMap;
     size_t    m_totalEntities = 0;
 
-    void removeDeadEntities(EntityVec & vec);
+    void removeDeadEntities(EntityVec& vec);
 
 public:
 
     EntityManager();
     void update();
-    std::shared_ptr<Entity> addEntity(const std::string & tag);
-    const EntityVec & getEntities();
-    const EntityVec & getEntities(const std::string & tag);
+    std::shared_ptr<Entity> addEntity(const std::string& tag);
+    const EntityVec& getEntities();
+    const EntityVec& getEntities(const std::string& tag);
     int len() const;
 };

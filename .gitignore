@@ -1,3 +1,12 @@
 .vscode
-*.o
-game
+
+# Don't commit build artifacts from development
+bin/*.html
+bin/*.js
+bin/*.wasm
+bin/*.data
+bin/*.o
+src/*.o
+
+# Don't commit raylib source
+external/raylib/

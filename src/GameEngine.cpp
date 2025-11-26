@@ -1,23 +1,22 @@
 #include "GameEngine.h"
-#include "Assets.h"
 #include "ScenePlay.h"
 #include "SceneMenu.h"
 
 #include <iostream>
+#include "raylib.h"
 
-GameEngine::GameEngine(const std::string & path)
+GameEngine::GameEngine(const std::string& path)
 {
     init(path);
 }
 
-void GameEngine::init(const std::string & path)
+void GameEngine::init(const std::string& path)
 {
+    InitWindow(1280, 768, "SNT");
+    SetTargetFPS(60);
     m_assets.loadFromFile(path);
-    m_window.create(sf::VideoMode(1280, 768), "Test");
-    m_window.setFramerateLimit(60);
-    // m_sceneMap["MENU"] = std::make_shared<SceneMenu>(this);
-    // m_sceneMap["PLAY"] = std::make_shared<ScenePlay>(this, "../bin/level.txt");
-    // m_currentScene = "MENU";
+    m_sceneMap["MENU"] = std::make_shared<SceneMenu>(this);
+    m_sceneMap["PLAY"] = std::make_shared<ScenePlay>(this, "level.txt");
     changeScene("MENU", std::make_shared<SceneMenu>(this));
 }
 
@@ -28,17 +27,12 @@ std::shared_ptr<Scene> GameEngine::currentScene()
 
 bool GameEngine::isRunning()
 {
-    return m_runnig & m_window.isOpen();
-}
-
-sf::RenderWindow & GameEngine::window()
-{
-    return m_window;
+    return m_runnig;
 }
 
 void GameEngine::run()
 {
-    while(isRunning())
+    while(!WindowShouldClose() && isRunning())
     {
         sUserInput();
         update();
@@ -53,38 +47,33 @@ void GameEngine::update()
 void GameEngine::quit()
 {
     m_runnig = false;
+    CloseWindow();
 }
 
 void GameEngine::sUserInput()
 {
-    sf::Event event;
-    while (m_window.pollEvent(event))
+    for (auto& [keyCode, actionName] : currentScene()->getActionMap())
     {
-        if (event.type == sf::Event::Closed)
+        if (IsKeyPressed(keyCode))  // Key just pressed
         {
-            quit();
+            currentScene()->doAction(Action(actionName, "START"));
+            std::cout << "keyCode = " << keyCode << " actionName = " << actionName << std::endl;
         }
-
-        if (event.type == sf::Event::KeyPressed || event.type == sf::Event::KeyReleased)
+        if (IsKeyReleased(keyCode)) // Key just released
         {
-            if (currentScene()->getActionMap().find(event.key.code) == currentScene()->getActionMap().end())
-            {
-                continue;
-            }
-            const std::string actionType = (event.type == sf::Event::KeyPressed) ? "START": "END";
-            currentScene()->doAction(Action(currentScene()->getActionMap().at(event.key.code), actionType));
+            currentScene()->doAction(Action(actionName, "END"));
         }
     }
 }
 
-void GameEngine::changeScene(const std::string & sceneName, std::shared_ptr<Scene> scene, bool endCurrentScene)
+void GameEngine::changeScene(const std::string& sceneName, std::shared_ptr<Scene> scene, bool endCurrentScene)
 {
     m_currentScene = sceneName;
     m_sceneMap[sceneName] = scene;
 
 }
 
-const Assets & GameEngine::getAssets() const
+const Assets& GameEngine::getAssets() const
 {
     return m_assets;
 }

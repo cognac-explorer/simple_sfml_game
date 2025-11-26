@@ -1,13 +1,13 @@
 #include "EntityManager.h"
 #include <iostream>
-
+#include <algorithm>
 
 EntityManager::EntityManager()
 {
     
 }
 
-std::shared_ptr<Entity> EntityManager::addEntity(const std::string & tag)
+std::shared_ptr<Entity> EntityManager::addEntity(const std::string& tag)
 {
     auto entity = std::shared_ptr<Entity>(new Entity(m_totalEntities++, tag));
     m_entitiesToAdd.push_back(entity);
@@ -16,7 +16,6 @@ std::shared_ptr<Entity> EntityManager::addEntity(const std::string & tag)
 
 void EntityManager::update()
 {
-    // std::cout << "we are in entity manager update" << std::endl;
     for (auto e : m_entitiesToAdd)
     {
         m_entities.push_back(e);
@@ -31,17 +30,17 @@ void EntityManager::update()
     }
 }
 
-const EntityVec & EntityManager::getEntities()
+const EntityVec& EntityManager::getEntities()
 {
     return m_entities;
 }
 
-const EntityVec & EntityManager::getEntities(const std::string & tag)
+const EntityVec& EntityManager::getEntities(const std::string& tag)
 {
     return m_entitiesMap[tag];
 }
 
-void EntityManager::removeDeadEntities(EntityVec & vec)
+void EntityManager::removeDeadEntities(EntityVec& vec)
 {
     vec.erase(std::remove_if(vec.begin(), vec.end(),
                             [](const std::shared_ptr<Entity>& e) 

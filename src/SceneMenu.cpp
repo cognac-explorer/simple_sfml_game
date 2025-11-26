@@ -2,11 +2,11 @@
 #include "ScenePlay.h"
 #include "Scene.h"
 #include "GameEngine.h"
-#include <SFML/Graphics.hpp>
 #include <iostream>
+#include "raylib.h"
 
 
-SceneMenu::SceneMenu(GameEngine * gameEngine)
+SceneMenu::SceneMenu(GameEngine* gameEngine)
     : Scene(gameEngine)
 {
     init();
@@ -16,12 +16,12 @@ void SceneMenu::init()
 {
     m_title = "Menu";
     m_menuStrings = {"Level 1", "Level 2"};
-    m_levelPaths = {"../bin/level.txt", "../bin/level2.txt"};
+    m_levelPaths = {"level.txt", "level2.txt"};
 
-    registerAction(sf::Keyboard::W,      "UP");
-    registerAction(sf::Keyboard::S,      "DOWN");
-    registerAction(sf::Keyboard::Space,  "OK");
-    registerAction(sf::Keyboard::Escape, "QUIT");
+    registerAction(KEY_W,      "UP");
+    registerAction(KEY_S,      "DOWN");
+    registerAction(KEY_SPACE,  "OK");
+    registerAction(KEY_ESCAPE, "QUIT");
 }
 
 void SceneMenu::update()
@@ -29,12 +29,12 @@ void SceneMenu::update()
     sRender();
 }
 
-void SceneMenu::onEnd()
-{
-    m_game -> quit();
-}
+// void SceneMenu::onEnd()
+// {
+//     m_game -> quit();
+// }
 
-void SceneMenu::sDoAction(const Action & action)
+void SceneMenu::sDoAction(const Action& action)
 {
     if (action.type() == "START" && action.name() == "UP")
     {
@@ -50,51 +50,28 @@ void SceneMenu::sDoAction(const Action & action)
     {
         m_game->changeScene("PLAY", std::make_shared<ScenePlay>(m_game, m_levelPaths[m_selectedMenuIndex]));
     }
-    else if (action.name() == "QUIT")  { onEnd(); }
+    // else if (action.name() == "QUIT")  { onEnd(); }
 }
 
 void SceneMenu::sRender()
 {
-    m_game->window().clear(sf::Color(50, 50, 150));
-    // reset game view
-    sf::View view = m_game->window().getView();
-    view.setCenter(m_game->window().getSize().x / 2, m_game->window().getSize().y / 2);
-    m_game->window().setView(view);
+    BeginDrawing();
+    ClearBackground(SKYBLUE);
 
-    m_menuText.setString(m_title);
-    m_menuText.setFont(m_game->getAssets().getFont("Main"));
-    m_menuText.setPosition(100, 50);
-    m_menuText.setCharacterSize(50);
-    m_menuText.setFillColor(sf::Color::Green);
-    m_menuText.setLetterSpacing(1.5);
-    m_game->window().draw(m_menuText);
+    DrawText(m_title.c_str(), 100, 50, 45, BROWN);
 
     for (size_t i = 0; i < m_menuStrings.size(); ++i)
     {
-        sf::Text levelName;
-        levelName.setFont(m_game->getAssets().getFont("Main"));
-        levelName.setString(m_menuStrings[i]);
-        levelName.setPosition(100, 250 + i * 70);
-        
         // Highlight the selected menu item
         if (i == m_selectedMenuIndex) 
         {
-            levelName.setFillColor(sf::Color::Red);
+            DrawText(m_menuStrings[i].c_str(), 100, 250 + i * 70, 45, RED);
         }
         else 
         {
-            levelName.setFillColor(sf::Color::White);
+            DrawText(m_menuStrings[i].c_str(), 100, 250 + i * 70, 45, BROWN);
         }
-
-        m_game->window().draw(levelName);
     }
-    
-    sf::Text bottomText;
-    bottomText.setFont(m_game->getAssets().getFont("Main"));
-    bottomText.setString("Use W key for up, S for down, space for enter and ESC for exit");
-    bottomText.setPosition(100, 700);
-    bottomText.setCharacterSize(20);
-    m_game->window().draw(bottomText);
 
-    m_game->window().display();
+    EndDrawing();
 }

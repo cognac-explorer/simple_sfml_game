@@ -10,9 +10,9 @@ class Action
 public:
     
     Action();
-    Action(const std::string & name, const std::string & type);
+    Action(const std::string& name, const std::string& type);
     
-    const std::string & name() const;
-    const std::string & type() const;
+    const std::string& name() const;
+    const std::string& type() const;
     // std::string toString() const;
 };

@@ -12,14 +12,13 @@ class GameEngine
 
 protected:
 
-    sf::RenderWindow m_window;
     Assets           m_assets;
     std::string      m_currentScene;
     SceneMap         m_sceneMap;
     size_t           m_simulationSpeed = 1;
     bool             m_runnig = true;
 
-    void init(const std::string & path);
+    void init(const std::string& path);
     void update();
 
     void sUserInput();
@@ -28,13 +27,12 @@ protected:
 
 public:
     
-    GameEngine(const std::string & path);
-    void changeScene(const std::string & sceneName, std::shared_ptr<Scene> scene, bool endCurrentScene = false);
+    GameEngine(const std::string& path);
+    void changeScene(const std::string& sceneName, std::shared_ptr<Scene> scene, bool endCurrentScene = false);
 
     void quit();
     void run();
 
-    sf::RenderWindow & window();
-    const Assets & getAssets() const;
+    const Assets& getAssets() const;
     bool isRunning();
 };

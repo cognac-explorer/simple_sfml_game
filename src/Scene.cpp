@@ -3,14 +3,14 @@
 #include "GameEngine.h"
 #include "Action.h"
 #include "EntityManager.h"
-
+#include "raylib.h"
 
 Scene::Scene()
     : m_game(nullptr), m_paused(false), m_hasEnded(false), m_currentFrame(0)
 {
 }
 
-Scene::Scene(GameEngine * gameEngine)
+Scene::Scene(GameEngine* gameEngine)
     : m_game(gameEngine), m_paused(false), m_hasEnded(false), m_currentFrame(0)
 {
 }
@@ -20,7 +20,7 @@ void Scene::setPaused(bool paused)
     m_paused = paused;
 }
 
-void Scene::doAction(const Action & action)
+void Scene::doAction(const Action& action)
 {
     sDoAction(action);
 }
@@ -44,12 +44,12 @@ void Scene::registerAction(int inputKey, const std::string actionName)
 
 size_t Scene::width() const
 {
-    return m_game ? m_game->window().getSize().x : 0;
+    return m_game ? GetScreenWidth() : 0;
 }
 
 size_t Scene::height() const
 {
-    return m_game ? m_game->window().getSize().y : 0;
+    return m_game ? GetScreenHeight() : 0;
 }
 
 size_t Scene::currentFrame() const
@@ -62,7 +62,7 @@ bool Scene::hasEnded() const
     return m_hasEnded;
 }
 
-const ActionMap & Scene::getActionMap() const
+const ActionMap& Scene::getActionMap() const
 {
     return m_actionMap;
 }

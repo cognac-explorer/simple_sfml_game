@@ -4,7 +4,7 @@
 #include <map>
 #include <memory>
 #include <Physics.h>
-#include "ParticleSystem.cpp"
+// #include "ParticleSystem.cpp"
 #include "EntityManager.h"
 
 class ScenePlay : public Scene
@@ -17,6 +17,7 @@ class ScenePlay : public Scene
 
 protected:
 
+    Camera2D m_camera;
     std::shared_ptr<Entity> m_player;
     std::string             m_levelPath;
     PlayerConfig            m_playerConfig;
@@ -24,15 +25,15 @@ protected:
     bool                    m_drawCollision = false;
     bool                    m_drawGrid = false;
     const Vec2              m_gridSize = {64, 64};
-    sf::Text                m_gridText;
+    std::string             m_gridText;
     Physics                 m_physics;
-    ParticleSystem          m_particles;
+    // ParticleSystem          m_particles;
 
-    void init(const std::string & levelPath);
+    void init(const std::string& levelPath);
 
 public:
-    ScenePlay(GameEngine * gameEngine, const std::string & levelPath);
-    void loadLevel(const std::string & fileName);
+    ScenePlay(GameEngine* gameEngine, const std::string& levelPath);
+    void loadLevel(const std::string& fileName);
     Vec2 gridToMidPixel(float gridX, float gridY, std::shared_ptr<Entity> entity);
     void spawnPlayer();
     void spawnBullet(std::shared_ptr<Entity> entity);
@@ -42,8 +43,8 @@ public:
     void sLifespan();
     void sCollision();
     void sParallax();
-    void sParticles();
-    void sDoAction(const Action & action);
-    void onEnd();
+    // void sParticles();
+    void sDoAction(const Action& action);
+    // void onEnd();
     void update();
 };

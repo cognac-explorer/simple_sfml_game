@@ -2,7 +2,8 @@
 
 #include "Animation.h"
 #include "Assets.h"
-
+#include "Vec2.h"
+#include <string>
 
 class Component
 {
@@ -18,13 +19,14 @@ public:
     Vec2 scale = {1.0, 1.0};
     Vec2 velocity = {0.0f, 0.0f};
     float angle = 0;
+    bool facingLeft = false;
 
     CTransform() {}
     CTransform(const Vec2 & p) 
         : pos(p) {}
 
-    CTransform(const Vec2 & p, const Vec2 & v, const Vec2 sc, float a)
-        : pos(p), prevPos(p), velocity(v), scale(sc), angle(a) {}
+    CTransform(const Vec2& p, const Vec2& v, const Vec2 sc, float a, bool fl)
+        : pos(p), prevPos(p), velocity(v), scale(sc), angle(a), facingLeft(fl) {}
 };
 
 class CCollision
@@ -77,7 +79,7 @@ public:
     Vec2 size;
     Vec2 halfSize;
     CBoundingBox() {}
-    CBoundingBox(const Vec2 & s)
+    CBoundingBox(const Vec2& s)
         : size(s), halfSize(s.x / 2, s.y / 2) {}
 };
 
@@ -87,7 +89,7 @@ public:
     Animation animation;
     bool repeat = false;
     CAnimation() {}
-    CAnimation(const Animation & a, bool r)
+    CAnimation(const Animation& a, bool r)
         : animation(a), repeat(r) {}
 };
 

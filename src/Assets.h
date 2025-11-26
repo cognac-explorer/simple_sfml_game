@@ -5,17 +5,18 @@
 
 class Assets
 {
-    std::map<std::string, sf::Texture> m_textures;
+    std::map<std::string, Texture2D> m_textures;
     std::map<std::string, Animation>   m_animations;
-    std::map<std::string, sf::Font>    m_fonts;
+    std::map<std::string, Font>    m_fonts;
 public:
     Assets() {};
-    void loadFromFile(std::string path);
-    void addTexture(std::string & name, std::string & path);
-    void addAnimation(std::string & name, Animation & animation);
-    void addFont(std::string & name, std::string & path);
+    void loadFromFile(const std::string path);
+    void addTexture(const std::string& name, const std::string& path);
+    void addAnimation(const std::string& name, const Animation& animation);
+    void addFont(const std::string& name, const std::string& path);
+    void clear();
 
-    sf::Texture & getTexture(const std::string & name);
-    const Animation & getAnimation(const std::string & name) const;
-    const sf::Font & getFont(const std::string & name) const;
+    Texture2D& getTexture(const std::string& name);
+    const Animation& getAnimation(const std::string& name) const;
+    const Font& getFont(const std::string& name) const;
 };
