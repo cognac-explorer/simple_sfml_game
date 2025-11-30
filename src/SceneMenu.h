@@ -4,7 +4,6 @@
 #include <map>
 #include <memory>
 #include <deque>
-#include "EntityManager.h"
 
 class SceneMenu : public Scene
 {
@@ -18,7 +17,7 @@ protected:
 
     void init();
     void update();
-    // void onEnd();
+    void onEnd();
     void sDoAction(const Action& action);
 
 public:

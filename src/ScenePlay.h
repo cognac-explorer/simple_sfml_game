@@ -4,8 +4,8 @@
 #include <map>
 #include <memory>
 #include <Physics.h>
-// #include "ParticleSystem.cpp"
-#include "EntityManager.h"
+#include "ParticleSystem.cpp"
+
 
 class ScenePlay : public Scene
 {
@@ -27,7 +27,7 @@ protected:
     const Vec2              m_gridSize = {64, 64};
     std::string             m_gridText;
     Physics                 m_physics;
-    // ParticleSystem          m_particles;
+    ParticleSystem          m_particles;
 
     void init(const std::string& levelPath);
 
@@ -45,6 +45,6 @@ public:
     void sParallax();
     // void sParticles();
     void sDoAction(const Action& action);
-    // void onEnd();
+    void onEnd();
     void update();
 };

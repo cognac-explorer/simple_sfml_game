@@ -29,10 +29,10 @@ void SceneMenu::update()
     sRender();
 }
 
-// void SceneMenu::onEnd()
-// {
-//     m_game -> quit();
-// }
+void SceneMenu::onEnd()
+{
+    m_game -> quit();
+}
 
 void SceneMenu::sDoAction(const Action& action)
 {
@@ -50,7 +50,7 @@ void SceneMenu::sDoAction(const Action& action)
     {
         m_game->changeScene("PLAY", std::make_shared<ScenePlay>(m_game, m_levelPaths[m_selectedMenuIndex]));
     }
-    // else if (action.name() == "QUIT")  { onEnd(); }
+    else if (action.name() == "QUIT")  { onEnd(); }
 }
 
 void SceneMenu::sRender()

@@ -1,5 +1,3 @@
-#include "Vec2.h"
-#include <iostream>
 #include "GameEngine.h"
 
 

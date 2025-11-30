@@ -1,9 +1,5 @@
 #include "Scene.h"
 
-#include "GameEngine.h"
-#include "Action.h"
-#include "EntityManager.h"
-#include "raylib.h"
 
 Scene::Scene()
     : m_game(nullptr), m_paused(false), m_hasEnded(false), m_currentFrame(0)

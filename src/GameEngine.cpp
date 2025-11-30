@@ -57,7 +57,6 @@ void GameEngine::sUserInput()
         if (IsKeyPressed(keyCode))  // Key just pressed
         {
             currentScene()->doAction(Action(actionName, "START"));
-            std::cout << "keyCode = " << keyCode << " actionName = " << actionName << std::endl;
         }
         if (IsKeyReleased(keyCode)) // Key just released
         {

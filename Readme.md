@@ -1,4 +1,5 @@
 ### Simple game using Raylib.
+The architecture is taken from the Dave Churchill lectures.
 
 ### Local Development Setup
 
